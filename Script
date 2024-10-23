@@ -12,7 +12,7 @@ while wait(1) do
         end
     else -- teleport to other place if there's no houses
         wait(7)
-        game:GetService('TeleportService'):Teleport(537413528)
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+        game:GetService('TeleportService'):TeleportPartyAsync(537413528) -- do teleport
+        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Mythikmythik/CandyFarmBABFTScript/refs/heads/main/Script'))()") -- keep the script on
     end
 end
