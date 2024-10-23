@@ -10,9 +10,27 @@ while wait(1) do
         if Workspace.Houses:FindFirstChild("TrickOrTreatHouse") then -- tp house door to player
            Workspace.Houses:FindFirstChild("TrickOrTreatHouse").Door.DoorInnerTouch.CFrame = getRoot(game.Players.LocalPlayer.Character).CFrame
         end
-    else -- teleport to other place if there's no houses
+    else -- do server hop if there's no houses
         wait(7)
-        game:GetService('TeleportService'):TeleportPartyAsync(537413528) -- do teleport
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Mythikmythik/CandyFarmBABFTScript/refs/heads/main/Script'))()") -- keep the script on
+        local servers = {}
+        local cloneref = cloneref or function(o) return o end
+        HttpService = cloneref(game:GetService("HttpService"))
+        local req = http_request ({Url = string.format("https://games.roblox.com/v1/games/537413528/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true", game.PlaceId)})
+        local body = HttpService:JSONDecode(req.Body)
+
+        if body and body.data then
+            for i, v in next, body.data do
+                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= JobId then
+                    table.insert(servers, 1, v.id)
+                end
+            end
+        end
+
+        if #servers > 0 then
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], Players.LocalPlayer)
+            queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Mythikmythik/CandyFarmBABFTScript/refs/heads/main/Script'))()") -- keep the script on
+        else
+            return game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Error", Text = "Found no servers", Icon = "rbxassetid://1234567890" })
+        end
     end
 end
