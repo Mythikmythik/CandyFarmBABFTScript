@@ -9,7 +9,9 @@ while wait(1) do
         end
         if Workspace.Houses:FindFirstChild("TrickOrTreatHouse") then -- tp house door to player
 	   for i,v in pairs(Workspace.Houses:FindFirstChild("TrickOrTreatHouse").Door:GetChildren()) do
-              v.Transparency = 1
+	      if V:IsA("BasePart") then
+                  v.Transparency = 1
+	      end
            end
            Workspace.Houses:FindFirstChild("TrickOrTreatHouse").Door.DoorInnerTouch.CFrame = getRoot(game.Players.LocalPlayer.Character).CFrame
 	   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 30
