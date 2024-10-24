@@ -12,6 +12,7 @@ while wait(1) do
         end
     else -- do server hop if there's no houses
         wait(7)
+	local Players = game:GetService("Players")
         local servers = {}
         local cloneref = cloneref or function(o) return o end
         HttpService = cloneref(game:GetService("HttpService"))
@@ -25,9 +26,10 @@ while wait(1) do
                 end
             end
         end
+	
 	-- servers[math.random(1, #servers)]
         if #servers > 0 then
-            TeleportService:TeleportToPlaceInstance(game.PlaceId, "25740ac0-4513-4b47-a519-3e74382b8da8", Players.LocalPlayer)
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], Players.LocalPlayer)
             queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Mythikmythik/CandyFarmBABFTScript/refs/heads/main/Script'))()") -- keep the script on
         else
             return game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Error", Text = "Found no servers", Icon = "rbxassetid://1234567890" })
