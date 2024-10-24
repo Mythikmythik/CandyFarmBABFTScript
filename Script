@@ -8,7 +8,11 @@ while wait(1) do
             Workspace.Houses:FindFirstChild("TrickOrTreatHouse"):Destroy()
         end
         if Workspace.Houses:FindFirstChild("TrickOrTreatHouse") then -- tp house door to player
+	   for i,v in pairs(Workspace.Houses:FindFirstChild("TrickOrTreatHouse").Door:GetChildren()) do
+              v.Transparency = 1
+           end
            Workspace.Houses:FindFirstChild("TrickOrTreatHouse").Door.DoorInnerTouch.CFrame = getRoot(game.Players.LocalPlayer.Character).CFrame
+	   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 30
         end
     else -- do server hop if there's no houses
         wait(7)
